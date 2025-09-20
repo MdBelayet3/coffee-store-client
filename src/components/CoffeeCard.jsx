@@ -51,4 +51,5 @@ const CoffeeCard = ({ coffee }) => {
 };
 
 
+
 export default CoffeeCard;
