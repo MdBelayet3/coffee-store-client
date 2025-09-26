@@ -1,7 +1,8 @@
 import { FaEdit, FaEye } from "react-icons/fa";
 import { FaDeleteLeft } from "react-icons/fa6";
+import { Link } from "react-router";
 import Swal from "sweetalert2";
-const CoffeeCard = ({ coffee }) => {
+const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
 
     const { _id, name, price, supplier, photo } = coffee;
 
@@ -19,12 +20,22 @@ const CoffeeCard = ({ coffee }) => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                // Swal.fire({
-                //     title: "Deleted!",
-                //     text: "Your file has been deleted.",
-                //     icon: "success"
-                // });
-                console.log("delete confirmed")
+                fetch(`http://localhost:5000/coffee/${_id}`, {
+                    method: "DELETE"
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.deletedCount > 0) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your coffee has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                        const remainingCoffees = coffees.filter(cof => cof._id !== _id);
+                        setCoffees(remainingCoffees)
+                    })
             }
         });
     }
@@ -43,13 +54,12 @@ const CoffeeCard = ({ coffee }) => {
             </div>
             <div className="flex flex-col gap-3">
                 <button className="btn text-white tooltip bg-[#D2B48C]" data-tip="Details"><FaEye></FaEye></button>
-                <button className="btn bg-[#3C393B] btn-primary tooltip" data-tip="Update"><FaEdit></FaEdit></button>
+                <Link to={`/updateCoffee/${_id}`}><button className="btn bg-[#3C393B] btn-primary tooltip" data-tip="Update"><FaEdit></FaEdit></button></Link>
                 <button onClick={() => handleDelete(_id)} className="btn bg-[#EA4744] btn-primary tooltip" data-tip="Delete"><FaDeleteLeft></FaDeleteLeft></button>
             </div>
         </div>
     );
 };
-
 
 
 export default CoffeeCard;
