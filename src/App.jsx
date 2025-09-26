@@ -1,11 +1,13 @@
 import { NavLink, useLoaderData } from 'react-router'
 import './App.css'
 import CoffeeCard from './components/CoffeeCard';
+import { useState } from 'react';
 
 function App() {
 
   // useLoaderData hook 
-  const coffees = useLoaderData();
+  const loadedCoffees = useLoaderData();
+  const [coffees, setCoffees] = useState(loadedCoffees);
   console.log(coffees);
 
   return (
@@ -16,7 +18,12 @@ function App() {
       </div>
       <div className='grid md:grid-cols-2 gap-4 mt-4'>
         {
-          coffees.map(coffee => <CoffeeCard coffee={coffee}></CoffeeCard>)
+          coffees.map(coffee => <CoffeeCard
+             coffee={coffee}
+             key={coffee._id}
+             coffees={coffees}
+             setCoffees={setCoffees}
+             ></CoffeeCard>)
         }
       </div>
     </div>
