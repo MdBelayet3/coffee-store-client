@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router';
 import Swal from 'sweetalert2'
 
 const AddCoffee = () => {
@@ -100,7 +99,6 @@ const AddCoffee = () => {
                 </div>
                 <button className='btn bg-[#D2B48C] mt-5 w-full hover:bg-yellow-200'><input type="submit" value="Add Coffee" /></button>
             </form>
-            <NavLink to="/"><button className='btn mt-4 btn-primary'>Go home</button></NavLink>
         </div>
     );
 };
