@@ -2,6 +2,7 @@ import { FaEdit, FaEye } from "react-icons/fa";
 import { FaDeleteLeft } from "react-icons/fa6";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
+
 const CoffeeCard = ({ coffee, coffees, setCoffees }) => {
 
     const { _id, name, price, supplier, photo } = coffee;
